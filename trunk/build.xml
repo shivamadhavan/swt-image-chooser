@@ -1,0 +1,45 @@
+<project name="com.whizzosoftwaresoftware.swt.imagechooserser" default="jar" basedir=".">
+
+    <property file="build.properties"/>
+
+    <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="../../lib"/>
+    <property name="resources.dir" value="resources"/>
+    <property name="classes.dir" value="classes"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="jar.name" value="com.whizzosoftware.swt.imagechooser_${version.num}.jar"/>
+    <property name="manifest.file" value="MANIFEST.MF"/>
+
+    <path id="compile.classpath">
+        <pathelement location="${swt.jar}"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${classes.dir}"/>
+        <delete file="${dist.dir}/${jar.name}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="create.manifest">
+        <copy file="config/MANIFEST.MF.tpl" tofile="config/${manifest.file}" filtering="true">
+            <filterset filtersfile="build.properties"/>
+        </copy>
+    </target>
+
+    <target name="jar" depends="compile,create.manifest">
+        <mkdir dir="${dist.dir}"/>
+        <jar jarfile="${dist.dir}/${jar.name}" manifest="config/${manifest.file}">
+            <fileset dir="${classes.dir}"/>
+            <fileset dir="${resources.dir}"/>
+        </jar>
+        <delete dir="${classes.dir}"/>
+        <delete file="config/${manifest.file}"/>
+    </target>
+
+</project>
