@@ -1,0 +1,1 @@
+This is an image chooser widget (image well) that provides image selection capabilities from the file system or a screen capture. Additionally, it provides rudimentary image manipulation capabilities such as crop, rotate, flip, etc.
